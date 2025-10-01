@@ -1,0 +1,39 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.env/
+env/
+
+# Flask / Python specific
+instance/
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# IDE / Editors
+.vscode/
+.idea/
+
+# macOS system files
+.DS_Store
+
+# Python packaging
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+htmlcov/
+.tox/
+.nox/
+.coverage
+.cache
+.pytest_cache/
