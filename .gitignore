@@ -38,3 +38,19 @@ htmlcov/
 .cache
 .pytest_cache/
 snake_game_data/
+
+# Infrastructure
+# infra/  <-- Commented out to allow pushing infra code
+
+# Terraform (Ignore state and logs, keep code)
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.log.*
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+.terraformrc
+terraform.rc
