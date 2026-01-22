@@ -2,7 +2,7 @@
 
 A classic Snake Game built with **Python Flask**, containerized with **Docker**, and deployed on **Kubernetes (Minikube)** with Ingress support.
 
-## 🚀 Features
+##  Features
 
 *   **Classic Game Logic**: Built with JavaScript and HTML5 Canvas.
 *   **Backend**: Python Flask app for serving the game and API endpoints.
@@ -12,13 +12,13 @@ A classic Snake Game built with **Python Flask**, containerized with **Docker**,
     *   **Persistence**: Data survives pod restarts and deployments.
     *   **Ingress**: Custom domain support (`http://snake-game.local`).
 
-## 📋 Prerequisites
+##  Prerequisites
 
 *   [Docker](https://www.docker.com/)
 *   [Minikube](https://minikube.sigs.k8s.io/docs/start/)
 *   [Kubectl](https://kubernetes.io/docs/tasks/tools/)
 
-## 🛠️ Quick Start
+##  Quick Start
 
 We provide a robust automation script valid for **macOS** and **Linux**.
 
@@ -45,7 +45,7 @@ To delete all Kubernetes resources (Deployment, Service, Ingress, PVC):
 ./deploy_k8s.sh restart
 ```
 
-## 🏗️ Architecture via Kubernetes
+##  Architecture via Kubernetes
 
 The project uses a consolidated manifest `k8s/deploy.yaml` which creates:
 1.  **ConfigMap & Secret**: For environment variables (`FLASK_ENV`, `DATABASE_URL`, `SECRET_KEY`).
@@ -54,7 +54,7 @@ The project uses a consolidated manifest `k8s/deploy.yaml` which creates:
 4.  **Service**: NodePort service exposing port 5000.
 5.  **Ingress**: Nginx ingress controller routing `snake-game.local` to the service.
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 .
@@ -67,5 +67,5 @@ The project uses a consolidated manifest `k8s/deploy.yaml` which creates:
 └── ...
 ```
 
-## 📝 License
+##  License
 This project is open source.
