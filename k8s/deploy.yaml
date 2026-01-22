@@ -1,0 +1,136 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: snake-game-config
+data:
+  FLASK_ENV: "production"
+  DATABASE_URL: "sqlite:////app/data/snake_game.db"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: snake-game-secret
+type: Opaque
+stringData:
+  SECRET_KEY: "change-this-to-a-random-secret-key-in-production"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: snake-game-db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snake-game
+  labels:
+    app: snake-game
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: snake-game
+  template:
+    metadata:
+      labels:
+        app: snake-game
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5000"
+    spec:
+      containers:
+        - name: snake-game
+          image: snake-game:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+              name: http
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: snake-game-secret
+                  key: SECRET_KEY
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: snake-game-config
+                  key: DATABASE_URL
+            - name: FLASK_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: snake-game-config
+                  key: FLASK_ENV
+          volumeMounts:
+            - name: db-storage
+              mountPath: /app/data
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: snake-game-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: snake-game-service
+  labels:
+    app: snake-game
+spec:
+  type: NodePort
+  selector:
+    app: snake-game
+  ports:
+    - name: http
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
+      nodePort: 30500
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: snake-game-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: snake-game.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: snake-game-service
+            port:
+              number: 5000

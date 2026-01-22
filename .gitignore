@@ -37,3 +37,4 @@ htmlcov/
 .coverage
 .cache
 .pytest_cache/
+snake_game_data/
