@@ -76,3 +76,4 @@ Jenkins needs permission to create EC2 instances.
     *   It grabs the new IP address.
 5.  **Stage 2**: Jenkins SSHs into that IP and deploys your code.
 6.  **Done**: Jenkins prints the App URL.
+8.  **Destroy**: To destroy the infrastructure, run `terraform destroy`.
