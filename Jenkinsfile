@@ -6,8 +6,7 @@ pipeline {
     }
 
     environment {
-        // Path to your PEM key on YOUR LOCAL MAC
-        // Jenkins needs read access to this file.
+
         // Update this path to where your key actually is.
         SSH_KEY_PATH = "/Users/anuragstark/Downloads/roi-platform-key.pem" 
         

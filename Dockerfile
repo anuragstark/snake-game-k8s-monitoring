@@ -17,6 +17,6 @@ RUN mkdir -p /app/data
 # Expose Flask port
 EXPOSE 5000
 
-# Run the application with Gunicorn (production WSGI server)
-# Use python app.py for development, gunicorn for production
+# Run the application with Gunicorn (production WSGI )
+# Use python app.py for development, gunicorn for production Web Server Gateway Interface
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "--timeout", "120", "app:app"]
