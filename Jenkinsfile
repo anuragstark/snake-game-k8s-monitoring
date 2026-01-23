@@ -94,9 +94,11 @@ pipeline {
 
     post {
         success {
-            echo "Pipeline [${params.ACTION}] Completed Successfully!"
-            if (params.ACTION == 'APPLY') {
-                echo "Access your app here: http://${env.INSTANCE_IP}:5000"
+            script {
+                echo "Pipeline [${params.ACTION}] Completed Successfully!"
+                if (params.ACTION == 'APPLY') {
+                    echo "Access your app here: http://${env.INSTANCE_IP}:5000"
+                }
             }
         }
         failure {
