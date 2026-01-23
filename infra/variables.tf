@@ -5,7 +5,7 @@ variable "aws_region" {
 
 variable "instance_type" {
   description = "EC2 Instance Type"
-  default     = "t2.micro"
+  default     = "t3.micro"
 }
 
 variable "key_name" {
