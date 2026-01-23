@@ -53,7 +53,7 @@ NAV_TEMPLATE = """
         <a href="/" class="text-white font-bold text-lg sm:text-xl hover:text-yellow-200 transition-colors">🐍 Snake Game</a>
         <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center w-full sm:w-auto">
             {% if current_user.is_authenticated %}
-                <a href="/dashboard" class="text-white hover:text-yellow-200 transition-colors font-semibold text-sm sm:text-base w-full sm:w-auto text-center sm:text-left">📊 Dashboard</a>
+                <a href="/dashboard" class="text-white hover:text-yellow-200 transition-colors font-semibold text-sm sm:text-base w-full sm:w-auto text-center sm:text-left"> Dashboard</a>
                 <span class="text-white text-sm sm:text-base">Welcome, <strong>{{ current_user.username }}</strong>!</span>
                 <a href="/logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold transition-all text-sm sm:text-base w-full sm:w-auto text-center">Logout</a>
             {% else %}
@@ -652,7 +652,7 @@ DASHBOARD_TEMPLATE = """
     <div class="max-w-6xl mx-auto">
         """ + NAV_TEMPLATE + """
         <div class="bg-white/10 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl">
-            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white text-center mb-4 sm:mb-6">📊 Your Dashboard</h1>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white text-center mb-4 sm:mb-6"> Your Dashboard</h1>
             
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
