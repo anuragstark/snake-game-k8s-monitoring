@@ -54,6 +54,24 @@ The project uses a consolidated manifest `k8s/deploy.yaml` which creates:
 4.  **Service**: NodePort service exposing port 5000.
 5.  **Ingress**: Nginx ingress controller routing `snake-game.local` to the service.
 
+##  Deployment & CI/CD (AWS & Jenkins)
+
+We support a full CI/CD pipeline employing **Local Jenkins**, **Terraform**, and **AWS EC2**.
+
+### Infrastructure (Terraform)
+Located in `infra/`, our Terraform code provisions:
+*   **AWS EC2 Instance** (Ubuntu 22.04 with Docker pre-installed).
+*   **Security Groups** allowing access to ports 22, 80, 443, and 5000.
+
+### Automated Pipeline (Jenkins)
+The `Jenkinsfile` defines a pipeline that:
+1.  **Provisions Infra**: Runs `terraform apply` to create/update the EC2 instance.
+2.  **Deploys Application**: SSHs into the instance, pulls the latest code, builds the Docker image, and runs the container.
+
+### Setup Guide
+For a detailed step-by-step guide on setting up this pipeline on your local machine using **Ngrok** and **GitHub Webhooks**, please refer to:
+👉 [**JENKINS_LOCAL_GUIDE.md**](./JENKINS_LOCAL_GUIDE.md)
+
 ##  Project Structure
 
 ```
